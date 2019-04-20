@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormArray, FormControl, AbstractControl, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { Router } from "@angular/router";
 
 import { faCopy,faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +28,7 @@ export class WhatsAppComponent implements OnInit {
 	public telefonoString:string;
 	public mensajeString:string;
 
-	constructor(private fb: FormBuilder, private router:Router) { 
+	constructor(private fb: FormBuilder, private router:Router, private ToastrService:ToastrService) { 
 		this.generadorForm = this.fb.group({
 			'telefono': [this.telefonoString, Validators.compose([Validators.required])],
 			'mensaje': [this.mensajeString, Validators.compose([Validators.required])]
@@ -40,8 +42,9 @@ export class WhatsAppComponent implements OnInit {
 
 	public onSubmit(values) {
 		console.log('onSubmit();');
-  		//https://wa.me/15551234567?text=I'm%20interested%20in%20your%20car%20for%20sale
-  		this.resultado = encodeURI("https://wa.me/"+this.telefonoString+"?text="+this.mensajeString);
+		//https://wa.me/15551234567?text=I'm%20interested%20in%20your%20car%20for%20sale
+		this.resultado = encodeURI("https://wa.me/"+this.telefonoString+"?text="+this.mensajeString);
+    this.ToastrService.success("Link generado");
 	}
 
 	public copiar():void {
@@ -50,6 +53,7 @@ export class WhatsAppComponent implements OnInit {
       e.clipboardData.setData('text/plain', (this.resultado));
       e.preventDefault();
       document.removeEventListener('copy', null);
+      this.ToastrService.success("Link copiado al portapapeles");
     });
     document.execCommand('copy');
 	}
