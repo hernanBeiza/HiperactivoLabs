@@ -54,9 +54,4 @@ export class WhatsAppComponent implements OnInit {
     document.execCommand('copy');
 	}
 
-	public probar():void {
-		navigateToURL()
-
-	}
-
 }
