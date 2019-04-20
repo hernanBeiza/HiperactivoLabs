@@ -1,0 +1,67 @@
+<div class="jumbotron mt-4">
+  <h1 class="display-4">Generador de Links para WhatsApp</h1>
+  <!--
+  <p class="lead">Generador de Links para WhatsApp</p>
+  -->
+  <hr class="my-4">
+  <p>¿Quieres que te escriban directamento a tu WhatsApp desde tu sitio web móvil? Usa esta herramienta para crear vínculos directo a tu WhatsApp</p>
+  <!--
+  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  -->
+</div>
+
+<div class="row">
+    <div class="col">
+        <form [formGroup]="generadorForm" (ngSubmit)="onSubmit(generadorForm.value)">
+            <div class="form-row">
+              <div class="form-group col-sm-12 col-md-4">
+  	            <div class="input-group">
+                  <input class="form-control" type="text" 
+                  placeholder="Ingresa el número" 
+                  inputmode="tel" 
+                  [formControl]="telefono" 
+                  [(ngModel)]="telefonoString"
+                  required/>
+                </div>
+              </div>
+              <div class="form-group col-sm-12 col-md-8">
+                  <div class="input-group">
+                    <input class="form-control" type="text" 
+                    placeholder="Ingresa el mensaje" 
+                    inputmode="text" 
+                    [formControl]="mensaje" 
+                    [(ngModel)]="mensajeString"
+                    required/>
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-sm-12 offset-lg-6 col-lg-6">
+                <button class="btn btn-primary btn-block" [disabled]="!generadorForm.valid" type="submit">Generar Link</button>
+              </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" *ngIf="resultado">
+  <div class="col-sm-12">
+    <div class="alert alert-success" role="alert">
+      <p><a href="javascript:void(0)" (click)="copiar();">{{resultado}}</a></p>
+    </div>
+
+  </div>
+  <div class="col-sm-12 col-md-6">
+    <button class="btn btn-info btn-block" type="button" (click)="copiar();">
+      <fa-icon [icon]="faCopy"></fa-icon>
+      Copiar Link
+    </button>
+  </div>
+  <div class="col-sm-12 col-md-6">
+    <a target="_blank" href="{{resultado}}" class="btn btn-success btn-block">
+      <fa-icon [icon]="faPlay"></fa-icon>
+      Probar Link
+      </a>
+  </div>
+</div>
